@@ -62,3 +62,137 @@
           </ul>
         </div>
 
+        <div class="skill">
+          <h3 class="skill__title">Buenas prácticas</h3>
+          <ul class="skill__list">
+            <li>Clean Code</li>
+            <li>Git / GitHub</li>
+            <li>Arquitectura simple</li>
+            <li>Documentación útil</li>
+          </ul>
+        </div>
+
+        <div class="skill">
+          <h3 class="skill__title">Herramientas</h3>
+          <ul class="skill__list">
+            <li>VS Code</li>
+            <li>Figma</li>
+            <li>APIs REST</li>
+            <li>Terminal</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="projects" class="section">
+      <h2 class="section__title">Proyectos</h2>
+
+      <div class="projects__grid">
+
+        <!-- PROYECTO 1 -->
+        <article class="project-card">
+          <div class="project-card__image-wrapper">
+            <img src="https://picsum.photos/600/400?random=1" class="project-card__image" alt="TaskFlow preview" />
+          </div>
+
+          <h3 class="project-card__title">TaskFlow</h3>
+          <p class="project-card__description">
+            Gestor de tareas con categorías personalizadas, filtros y modo oscuro persistente.
+          </p>
+
+          <ul class="project-card__tags">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+          </ul>
+
+          <button class="btn btn--small project-card__details" data-project="taskflow">Ver detalles</button>
+        </article>
+
+        <!-- PROYECTO 2 -->
+        <article class="project-card">
+          <div class="project-card__image-wrapper">
+            <img src="https://picsum.photos/600/400?random=2" class="project-card__image" alt="MercadoMini preview" />
+          </div>
+
+          <h3 class="project-card__title">MercadoMini</h3>
+          <p class="project-card__description">
+            Mini e‑commerce con carrito persistente y cálculo de impuestos por región.
+          </p>
+
+          <ul class="project-card__tags">
+            <li>React</li>
+            <li>JavaScript</li>
+            <li>Clean Code</li>
+          </ul>
+
+          <button class="btn btn--small project-card__details" data-project="mercadomini">Ver detalles</button>
+        </article>
+
+        <!-- PROYECTO 3 -->
+        <article class="project-card">
+          <div class="project-card__image-wrapper">
+            <img src="https://picsum.photos/600/400?random=3" class="project-card__image" alt="ClimaLocal preview" />
+          </div>
+
+          <h3 class="project-card__title">ClimaLocal</h3>
+          <p class="project-card__description">
+            App del clima con API, ciudades favoritas y manejo de errores realista.
+          </p>
+
+          <ul class="project-card__tags">
+            <li>API</li>
+            <li>JavaScript</li>
+            <li>UX</li>
+          </ul>
+
+          <button class="btn btn--small project-card__details" data-project="climalocal">Ver detalles</button>
+        </article>
+
+      </div>
+
+      <!-- MODAL -->
+      <div id="projectModal" class="modal modal--hidden">
+        <div class="modal__content">
+          <button id="modalClose" class="modal__close">&times;</button>
+          <h3 id="modalTitle"></h3>
+          <p id="modalDescription"></p>
+          <ul id="modalHighlights"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contact" class="section">
+      <h2 class="section__title">Contacto</h2>
+
+      <form id="contactForm" class="contact__form">
+        <div class="form__group">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" required />
+        </div>
+
+        <div class="form__group">
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+
+        <div class="form__group">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button class="btn">Enviar</button>
+        <p id="formFeedback" class="form__feedback"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> — Hecho con intención, no con prisa.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
