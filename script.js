@@ -1,6 +1,10 @@
 // -------------------------------------------------------------
 // Utilidades simples
 // -------------------------------------------------------------
+
+/**
+ * Atajo para obtener elementos por ID.
+ */
 function $(id) {
   return document.getElementById(id);
 }
@@ -11,6 +15,7 @@ function $(id) {
 const themeToggleBtn = $("themeToggle");
 const root = document.documentElement;
 
+// Cargar tema guardado previamente
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
   root.setAttribute("data-theme", savedTheme);
@@ -18,6 +23,7 @@ if (savedTheme) {
     savedTheme === "light" ? "Modo oscuro" : "Modo claro";
 }
 
+// Alternar tema
 themeToggleBtn.addEventListener("click", () => {
   const currentTheme = root.getAttribute("data-theme");
   const nextTheme = currentTheme === "light" ? "dark" : "light";
@@ -30,7 +36,7 @@ themeToggleBtn.addEventListener("click", () => {
 });
 
 // -------------------------------------------------------------
-// Scroll Reveal (animaciones al hacer scroll)
+// Scroll Reveal — Animaciones avanzadas al hacer scroll
 // -------------------------------------------------------------
 const revealElements = document.querySelectorAll("[data-reveal]");
 
@@ -60,6 +66,9 @@ const modalDescription = $("modalDescription");
 const modalHighlights = $("modalHighlights");
 const modalClose = $("modalClose");
 
+/**
+ * Información de proyectos.
+ */
 const projectData = {
   taskflow: {
     title: "TaskFlow",
@@ -95,6 +104,9 @@ const projectData = {
   },
 };
 
+/**
+ * Abre el modal con la información del proyecto seleccionado.
+ */
 function openProjectModal(projectKey) {
   const data = projectData[projectKey];
   if (!data) return;
@@ -112,18 +124,24 @@ function openProjectModal(projectKey) {
   modal.classList.remove("modal--hidden");
 }
 
+/**
+ * Cierra el modal.
+ */
 function closeProjectModal() {
   modal.classList.add("modal--hidden");
 }
 
+// Eventos para abrir modal
 projectDetailsButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     openProjectModal(btn.dataset.project);
   });
 });
 
+// Cerrar modal con botón
 modalClose.addEventListener("click", closeProjectModal);
 
+// Cerrar modal haciendo clic fuera del contenido
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeProjectModal();
 });
