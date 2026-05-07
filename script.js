@@ -1,26 +1,14 @@
-// Decisión de diseño: mantener este archivo pequeño y enfocado.
-// Cada bloque tiene una responsabilidad clara.
-
-// ----------------------
-// Utilidades
-// ----------------------
-
-/**
- * Devuelve un elemento por su id.
- * Prefiero esta pequeña utilidad para evitar repetir document.getElementById.
- */
+// Utilidad para obtener elementos rápido
 function $(id) {
   return document.getElementById(id);
 }
 
 // ----------------------
-// Tema (oscuro / claro)
+// Tema oscuro / claro
 // ----------------------
-
 const themeToggleBtn = $("themeToggle");
 const root = document.documentElement;
 
-// Cargar tema guardado
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
   root.setAttribute("data-theme", savedTheme);
@@ -39,7 +27,6 @@ themeToggleBtn.addEventListener("click", () => {
 // ----------------------
 // Modal de proyectos
 // ----------------------
-
 const projectDetailsButtons = document.querySelectorAll(".project-card__details");
 const modal = $("projectModal");
 const modalTitle = $("modalTitle");
@@ -47,36 +34,35 @@ const modalDescription = $("modalDescription");
 const modalHighlights = $("modalHighlights");
 const modalClose = $("modalClose");
 
-// Información de proyectos (aquí se ve tu criterio, no es genérico)
 const projectData = {
   taskflow: {
     title: "TaskFlow",
     description:
-      "TaskFlow nació de una necesidad personal: dejar de usar notas sueltas para organizar mi día. El foco está en la simplicidad y en no abrumar al usuario.",
+      "TaskFlow nació de una necesidad personal: dejar de usar notas sueltas para organizar mi día.",
     highlights: [
       "Filtros por prioridad, estado y categoría.",
-      "Modo oscuro con preferencia guardada en localStorage.",
-      "Código organizado en módulos pequeños y funciones con una sola responsabilidad.",
+      "Modo oscuro con preferencia guardada.",
+      "Código organizado en funciones pequeñas."
     ],
   },
   mercadomini: {
     title: "MercadoMini",
     description:
-      "MercadoMini es un mini e‑commerce pensado para practicar lógica de negocio: impuestos, stock y carrito persistente.",
+      "Mini e‑commerce pensado para practicar lógica de negocio: impuestos, stock y carrito persistente.",
     highlights: [
-      "Carrito que se mantiene entre sesiones usando localStorage.",
-      "Cálculo de impuestos según región simulada.",
-      "Componentes reutilizables y separación clara entre UI y lógica.",
+      "Carrito persistente con localStorage.",
+      "Cálculo de impuestos según región.",
+      "Componentes reutilizables."
     ],
   },
   climalocal: {
     title: "ClimaLocal",
     description:
-      "ClimaLocal surgió como ejercicio para consumir APIs y manejar errores de forma honesta con el usuario.",
+      "App del clima con API, ciudades favoritas y manejo de errores realista.",
     highlights: [
-      "Consumo de una API de clima con manejo de errores de red.",
+      "Consumo de API con manejo de errores.",
       "Ciudades favoritas guardadas localmente.",
-      "Mensajes claros cuando algo falla (en lugar de errores genéricos).",
+      "Mensajes claros cuando algo falla."
     ],
   },
 };
@@ -88,9 +74,7 @@ function openProjectModal(projectKey) {
   modalTitle.textContent = data.title;
   modalDescription.textContent = data.description;
 
-  // Limpiar lista anterior
   modalHighlights.innerHTML = "";
-
   data.highlights.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
@@ -106,24 +90,19 @@ function closeProjectModal() {
 
 projectDetailsButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const projectKey = btn.dataset.project;
-    openProjectModal(projectKey);
+    openProjectModal(btn.dataset.project);
   });
 });
 
 modalClose.addEventListener("click", closeProjectModal);
 
 modal.addEventListener("click", (event) => {
-  // Cerrar si se hace clic fuera del contenido
-  if (event.target === modal) {
-    closeProjectModal();
-  }
+  if (event.target === modal) closeProjectModal();
 });
 
 // ----------------------
 // Formulario de contacto
 // ----------------------
-
 const contactForm = $("contactForm");
 const formFeedback = $("formFeedback");
 
@@ -134,23 +113,16 @@ contactForm.addEventListener("submit", (event) => {
   const email = contactForm.email.value.trim();
   const message = contactForm.message.value.trim();
 
-  // Validación simple pero con intención
   if (!name || !email || !message) {
     formFeedback.textContent = "Por favor completa todos los campos.";
     formFeedback.style.color = "var(--danger)";
     return;
   }
 
-  // Aquí normalmente enviarías los datos a un backend o servicio de correo.
-  // Para el portafolio, basta con simular el envío.
-  formFeedback.textContent = "Gracias por tu mensaje. Te responderé lo antes posible.";
+  formFeedback.textContent = "Gracias por tu mensaje. Te responderé pronto.";
   formFeedback.style.color = "var(--accent)";
-
   contactForm.reset();
 });
 
-// ----------------------
-// Año en el footer
-// ----------------------
-
+// Año dinámico
 $("year").textContent = new Date().getFullYear();
