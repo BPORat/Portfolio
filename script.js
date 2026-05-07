@@ -1,11 +1,6 @@
 // -------------------------------------------------------------
 // Utilidades simples
 // -------------------------------------------------------------
-
-/**
- * Atajo para obtener elementos por ID.
- * Prefiero esta función para evitar repetir document.getElementById.
- */
 function $(id) {
   return document.getElementById(id);
 }
@@ -16,7 +11,6 @@ function $(id) {
 const themeToggleBtn = $("themeToggle");
 const root = document.documentElement;
 
-// Cargar tema guardado previamente
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
   root.setAttribute("data-theme", savedTheme);
@@ -24,7 +18,6 @@ if (savedTheme) {
     savedTheme === "light" ? "Modo oscuro" : "Modo claro";
 }
 
-// Alternar tema
 themeToggleBtn.addEventListener("click", () => {
   const currentTheme = root.getAttribute("data-theme");
   const nextTheme = currentTheme === "light" ? "dark" : "light";
@@ -35,6 +28,25 @@ themeToggleBtn.addEventListener("click", () => {
   themeToggleBtn.textContent =
     nextTheme === "light" ? "Modo oscuro" : "Modo claro";
 });
+
+// -------------------------------------------------------------
+// Scroll Reveal (animaciones al hacer scroll)
+// -------------------------------------------------------------
+const revealElements = document.querySelectorAll("[data-reveal]");
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+revealElements.forEach((el) => revealObserver.observe(el));
 
 // -------------------------------------------------------------
 // Modal de proyectos
@@ -48,14 +60,11 @@ const modalDescription = $("modalDescription");
 const modalHighlights = $("modalHighlights");
 const modalClose = $("modalClose");
 
-/**
- * Información de proyectos.
- */
 const projectData = {
   taskflow: {
     title: "TaskFlow",
     description:
-      "TaskFlow nació de una necesidad personal: organizar mis tareas sin depender de apps recargadas. El enfoque es simplicidad y claridad.",
+      "TaskFlow nació de una necesidad personal: organizar mis tareas sin depender de apps recargadas.",
     highlights: [
       "Filtros por prioridad, estado y categoría.",
       "Modo oscuro persistente con localStorage.",
@@ -69,8 +78,8 @@ const projectData = {
       "Mini e‑commerce creado para practicar lógica de negocio real: stock, impuestos y persistencia del carrito.",
     highlights: [
       "Carrito persistente entre sesiones.",
-      "Cálculo de impuestos según región simulada.",
-      "Componentes reutilizables y separación UI/lógica.",
+      "Cálculo de impuestos según región.",
+      "Componentes reutilizables.",
     ],
   },
 
@@ -86,9 +95,6 @@ const projectData = {
   },
 };
 
-/**
- * Abre el modal con la información del proyecto seleccionado.
- */
 function openProjectModal(projectKey) {
   const data = projectData[projectKey];
   if (!data) return;
@@ -106,24 +112,18 @@ function openProjectModal(projectKey) {
   modal.classList.remove("modal--hidden");
 }
 
-/**
- * Cierra el modal.
- */
 function closeProjectModal() {
   modal.classList.add("modal--hidden");
 }
 
-// Eventos para abrir modal
 projectDetailsButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     openProjectModal(btn.dataset.project);
   });
 });
 
-// Cerrar modal con botón
 modalClose.addEventListener("click", closeProjectModal);
 
-// Cerrar modal haciendo clic fuera del contenido
 modal.addEventListener("click", (event) => {
   if (event.target === modal) closeProjectModal();
 });
@@ -141,14 +141,12 @@ contactForm.addEventListener("submit", (event) => {
   const email = contactForm.email.value.trim();
   const message = contactForm.message.value.trim();
 
-  // Validación simple pero útil
   if (!name || !email || !message) {
     formFeedback.textContent = "Por favor completa todos los campos.";
     formFeedback.style.color = "var(--accent-hover)";
     return;
   }
 
-  // Simulación de envío
   formFeedback.textContent =
     "Gracias por tu mensaje. Te responderé lo antes posible.";
   formFeedback.style.color = "var(--accent)";
@@ -157,6 +155,6 @@ contactForm.addEventListener("submit", (event) => {
 });
 
 // -------------------------------------------------------------
-// Año dinámico en el footer
+// Año dinámico
 // -------------------------------------------------------------
 $("year").textContent = new Date().getFullYear();
